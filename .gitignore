@@ -1,0 +1,8 @@
+.env
+.ansible
+.venv
+.vscode
+/infra/
+/src/
+/logs/
+compose.yaml

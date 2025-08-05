@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":skipStatusChecks",
+    ":timezone(Asia/Makassar)",
+    "github>kilip/homeplay//.github/renovate/labels.json5"
+  ],
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "automerge": true,
+  "automergeType": "branch",
+  "automergeStrategy": "rebase",
+  "automergeSchedule": ["* 23 * * *"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": ["Process various dependencies in YAML files"],
+      "managerFilePatterns": ["/.+\\.ya?ml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?( versionTemplate=(?<versionTemplate>.*=?))?\\n.*: ?(\"?(?<currentValue>[^\"\\n]+=?)\"?)"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "extractVersionTemplate": "{{#if versionTemplate}}{{{versionTemplate}}}{{else}}{{/if}}"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Auto-merge trusted container digests",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest", "major", "minor"],
+      "ignoreTests": true
+    }
+  ]
+}

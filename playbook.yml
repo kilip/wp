@@ -1,0 +1,57 @@
+---
+- name: Ensure database exists
+  gather_facts: true
+  hosts: localhost
+  vars_files:
+    - ./vars/main.yml
+  tasks:
+    - name: Ensure mysql database exists
+      community.mysql.mysql_db:
+        name: "{{ wp_db }}"
+        login_user: root
+        login_password: "{{ root_pass }}"
+        login_host: "{{ wp_db_host }}"
+
+    - name: Ensure mysql user exists
+      community.mysql.mysql_user:
+        name: "{{ wp_db_user }}"
+        password: "{{ wp_db_pass }}"
+        priv: "{{ wp_db_user }}.*:ALL"
+        host: "%"
+        login_user: root
+        login_password: "{{ root_pass }}"
+        login_host: "{{ wp_db_host }}"
+        state: present
+
+    - name: Ensure wp image build
+      community.docker.docker_image:
+        name: "ghcr.io/kilip/wp"
+        build:
+          path: "./"
+          dockerfile: Dockerfile
+          args:
+            NEW_RELIC_AGENT_VERSION: "{{ nr_agent_version }}"
+            NEW_RELIC_LICENSE_KEY: "{{ nr_license }}"
+            NEW_RELIC_APPNAME: "wp"
+            NR_DAEMON_HOST: "{{ nr_host }}"
+            IMAGE_NAME: "{{ wordpress_image }}"
+        source: build
+        tag: "{{ wordpress_version }}"
+
+    - name: Ensure wpdev container started
+      community.docker.docker_container:
+        name: wp
+        image: "{{ wp_image }}"
+        state: started
+        image_name_mismatch: recreate
+        env:
+          WORDPRESS_DB_HOST: "{{ wp_db_host }}"
+          WORDPRESS_DB_NAME: "{{ wp_db }}"
+          WORDPRESS_DB_USER: "{{ wp_db_user }}"
+          WORDPRESS_DB_PASSWORD: "{{ wp_db_pass }}"
+        volumes:
+          - "/srv/wp/src:/var/www/html"
+        networks:
+          - name: "{{ nr_network }}"
+        ports:
+          - "{{ wp_port }}"

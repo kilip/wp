@@ -1,0 +1,12 @@
+---
+version: "3"
+tasks:
+  deps:
+    cmds:
+      - pip install -r requirements.txt
+  play:
+    cmds:
+      - ansible-playbook playbook.yml
+
+  check:
+    cmd: ansible-playbook playbook.yml --check

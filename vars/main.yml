@@ -1,0 +1,19 @@
+---
+# renovate datasource=github depName=wordpress/wordpress-develop
+wordpress_version: 6.8.2
+wordpress_image: "wordpress:{{ wordpress_version }}-php8.4-apache"
+
+wp_db_host: "{{ lookup('ansible.builtin.env', 'WP_DB_HOST') }}"
+wp_db_user: "{{ lookup('ansible.builtin.env', 'WP_DB_USER') }}"
+wp_db_pass: "{{ lookup('ansible.builtin.env', 'WP_DB_PASS') }}"
+wp_db: "{{ lookup('env', 'WP_DB') }}"
+wp_port: "{{ lookup('env', 'WP_PORT') }}"
+wp_image: "ghcr.io/kilip/wp:{{ wordpress_version }}"
+
+root_pass: "{{ lookup('ansible.builtin.env', 'MYSQL_ROOT_PASS') }}"
+
+# renovate datasource=docker depName=newrelic/php-daemon
+nr_agent_version: 11.10.0.24
+nr_license: "{{ lookup('env', 'NR_LICENSE') }}"
+nr_host: "{{ lookup('env', 'NR_HOST') }}"
+nr_network: "{{ lookup('env', 'NR_NETWORK') }}"

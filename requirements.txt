@@ -1,0 +1,9 @@
+ansible>=2.10
+ansible-lint
+molecule
+molecule-docker
+#bitwarden-sdk
+psycopg2-binary
+#packaging
+docker
+pymysql
