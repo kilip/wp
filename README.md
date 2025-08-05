@@ -1,7 +1,9 @@
-# Wordpress Headless Development
+# WordPress Headless For Development
 
 This repository contains ansible playbook to converge my headless wordpress.
-Please contact me if you interested in using this server to build your website.
+All contents in this website is using theme unit test data.
+
+Please contact me if you interested in using this server to build your own headless wordpress theme/website.
 
 ### Features
 
@@ -9,4 +11,5 @@ Please contact me if you interested in using this server to build your website.
 - WPGraphQL
 - GraphQL query and REST API Caching
 - WPGraphQL authentication
+- Auth0
 - NewRelic for monitoring
