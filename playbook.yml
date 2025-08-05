@@ -1,7 +1,7 @@
 ---
 - name: Ensure database exists
   gather_facts: true
-  hosts: localhost
+  hosts: target
   vars_files:
     - ./vars/main.yml
   tasks:
@@ -38,7 +38,7 @@
         source: build
         tag: "{{ wordpress_version }}"
 
-    - name: Ensure wpdev container started
+    - name: Ensure wp container started
       community.docker.docker_container:
         name: wp
         image: "{{ wp_image }}"
