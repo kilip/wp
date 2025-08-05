@@ -3,7 +3,7 @@
   gather_facts: true
   hosts: target
   vars_files:
-    - ./vars/main.yml
+    - ./main.yml
   tasks:
     - name: Ensure mysql database exists
       community.mysql.mysql_db:
