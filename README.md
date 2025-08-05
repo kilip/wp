@@ -1,7 +1,12 @@
 # Wordpress Headless Development
 
-### Technology Stack
+This repository contains ansible playbook to converge my headless wordpress.
+Please contact me if you interested in using this server to build your website.
 
-- Wordpress
+### Features
+
+- WordPress
 - WPGraphQL
-- NewRelic for monitory
+- GraphQL query and REST API Caching
+- WPGraphQL authentication
+- NewRelic for monitoring
