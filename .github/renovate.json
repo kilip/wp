@@ -18,7 +18,7 @@
     {
       "customType": "regex",
       "description": ["Process various dependencies in YAML files"],
-      "managerFilePatterns": ["/.+\\.ya?ml$/"],
+      "managerFilePatterns": ["\\.yaml$", "\\.yml$"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*=?))?( versionTemplate=(?<versionTemplate>.*=?))?\\n.*: ?(\"?(?<currentValue>[^\"\\n]+=?)\"?)"
       ],
